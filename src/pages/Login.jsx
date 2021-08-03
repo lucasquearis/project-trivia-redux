@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ConfigButton from '../components/ConfigButton';
 
 class Login extends Component {
   constructor(props) {
@@ -33,39 +34,42 @@ class Login extends Component {
   render() {
     const { name, email, btnDisable } = this.state;
     return (
-      <fieldset>
-        <label
-          htmlFor="input-player-name"
-        >
-          Nome:
-          <input
-            value={ name }
-            name="name"
-            onChange={ this.handleChange }
-            type="text"
-            data-testid="input-player-name"
-          />
-        </label>
-        <label
-          htmlFor="input-gravatar-email"
-        >
-          Email:
-          <input
-            value={ email }
-            name="email"
-            onChange={ this.handleChange }
-            type="text"
-            data-testid="input-gravatar-email"
-          />
-        </label>
-        <button
-          disabled={ btnDisable }
-          type="button"
-          data-testid="btn-play"
-        >
-          Jogar
-        </button>
-      </fieldset>
+      <>
+        <fieldset>
+          <label
+            htmlFor="input-player-name"
+          >
+            Nome:
+            <input
+              value={ name }
+              name="name"
+              onChange={ this.handleChange }
+              type="text"
+              data-testid="input-player-name"
+            />
+          </label>
+          <label
+            htmlFor="input-gravatar-email"
+          >
+            Email:
+            <input
+              value={ email }
+              name="email"
+              onChange={ this.handleChange }
+              type="text"
+              data-testid="input-gravatar-email"
+            />
+          </label>
+          <button
+            disabled={ btnDisable }
+            type="button"
+            data-testid="btn-play"
+          >
+            Jogar
+          </button>
+        </fieldset>
+        <ConfigButton />
+      </>
     );
   }
 }
