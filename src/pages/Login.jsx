@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { saveLogin } from '../redux/actions/actionsLogin';
 import { fetchAPI } from '../redux/actions';
 import ConfigButton from '../components/ConfigButton';
+
+const md5 = require('md5');
 
 class Login extends Component {
   constructor(props) {
@@ -27,9 +30,10 @@ class Login extends Component {
   }
 
   handleClick() {
-    const { fetchAPItoken, token } = this.props;
+    const { fetchAPItoken, token, saveData } = this.props;
     fetchAPItoken();
     localStorage.setItem('token', token);
+    saveData(this.state);
   }
 
   btnDisable() {
@@ -91,6 +95,11 @@ class Login extends Component {
 Login.propTypes = {
   fetchAPItoken: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
+  saveData: PropTypes.func,
+};
+
+Login.defaultProps = {
+  saveData: () => {},
 };
 
 const mapStateToProps = (state) => ({
@@ -99,6 +108,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAPItoken: () => dispatch(fetchAPI()),
+  saveData: (state) => {
+    const hashEmail = md5(
+      state.email.toLowerCase()
+        .replace(/^\s\s*/, '').replace(/\s\s*$/, ''),
+    );
+    return dispatch(saveLogin(state, hashEmail));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

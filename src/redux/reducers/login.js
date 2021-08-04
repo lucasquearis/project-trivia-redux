@@ -1,3 +1,4 @@
+import { SAVE_LOGIN } from '../actions/actionsLogin';
 import {
   GET_TOKEN,
   GET_TOKEN_SUCCESS,
@@ -8,10 +9,18 @@ const INITIAL_STATE = {
   email: '',
   name: '',
   token: '',
+  hashEmail: '',
 };
 
 const login = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case SAVE_LOGIN:
+    return {
+      ...state,
+      email: action.email,
+      name: action.name,
+      hashEmail: action.hashEmail,
+    };
   case GET_TOKEN:
     return {
       ...state,
