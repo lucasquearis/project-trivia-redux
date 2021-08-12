@@ -9,22 +9,27 @@ class Feedback extends React.Component {
     const { score, assertions } = this.props;
     const avarage = 3;
     return (
-      <>
+      <section className="fieldset-question">
         <Header />
         <h2
           data-testid="feedback-text"
         >
           { assertions >= avarage ? 'Mandou bem!' : 'Podia ser melhor...' }
         </h2>
-        <p
+        <p>
+          Pontuação Total:
+        </p>
+
+        <span
           data-testid="feedback-total-score"
         >
-          { `${score}` }
-        </p>
+          { score }
+        </span>
+        <span>Número de Acertos:</span>
         <p
           data-testid="feedback-total-question"
         >
-          { `${assertions}` }
+          {assertions}
         </p>
         <Link to="/">
           <button
@@ -42,7 +47,7 @@ class Feedback extends React.Component {
             Ver Ranking
           </button>
         </Link>
-      </>
+      </section>
     );
   }
 }
